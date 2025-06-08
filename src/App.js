@@ -12,7 +12,7 @@ const ExpenseTracker = () => {
     paymentModes: []
   });
 
-  // Form state
+
   const [formData, setFormData] = useState({
     amount: '',
     category: '',
@@ -24,10 +24,10 @@ const ExpenseTracker = () => {
   const categories = ['Rental', 'Groceries', 'Entertainment', 'Travel', 'Others'];
   const paymentModes = ['UPI', 'Credit Card', 'Net Banking', 'Cash'];
 
-  // Load data from localStorage on component mount
+
   useEffect(() => {
     try {
-      // Check if localStorage is available
+     
       if (typeof(Storage) === "undefined") {
         console.log('LocalStorage is not supported in this environment');
         return;
@@ -53,11 +53,9 @@ const ExpenseTracker = () => {
       }
     } catch (error) {
       console.error('Error loading data from localStorage:', error);
-      // If there's an error, we'll just start with empty state
     }
   }, []);
 
-  // Save expenses to localStorage whenever expenses change
   useEffect(() => {
     try {
       if (typeof(Storage) !== "undefined") {
@@ -71,7 +69,7 @@ const ExpenseTracker = () => {
     }
   }, [expenses]);
 
-  // Save filters to localStorage whenever filters change
+
   useEffect(() => {
     try {
       localStorage.setItem('expenseTrackerFilters', JSON.stringify(filters));
@@ -80,7 +78,7 @@ const ExpenseTracker = () => {
     }
   }, [filters]);
 
-  // Save active tab to localStorage whenever it changes
+
   useEffect(() => {
     try {
       localStorage.setItem('expenseTrackerActiveTab', activeTab);
@@ -139,7 +137,7 @@ const ExpenseTracker = () => {
       const expenseDate = new Date(expense.date);
       const now = new Date();
       
-      // Date filter
+
       let dateMatch = true;
       if (filters.dateRange === 'thisMonth') {
         dateMatch = expenseDate.getMonth() === now.getMonth() && 
@@ -152,11 +150,11 @@ const ExpenseTracker = () => {
         dateMatch = expenseDate >= ninetyDaysAgo;
       }
 
-      // Category filter
+
       const categoryMatch = filters.categories.length === 0 || 
                            filters.categories.includes(expense.category);
 
-      // Payment mode filter
+
       const paymentMatch = filters.paymentModes.length === 0 || 
                           filters.paymentModes.includes(expense.paymentMode);
 
